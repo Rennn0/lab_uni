@@ -32,27 +32,25 @@
 //     return 1;
 // };
 
+// 10ms 
+// 5.9 mb
+
 int arrangeCoins(int n)
 {
-    long dec=0;
-    for(size_t a=1;true;++a)
-    {
-        if(n==0)
-        {
-            cout<<a<<endl;
-            return a;
-        } else if(n<0)
-        {
-            cout<<a-1<<endl;
+    for(int a=2,b=1;true;b+=a, ++a){
+        if(n>b)
+            continue;
+        else if(n==b){
             return a-1;
         }
-        dec+=a;
-        n-=dec;
+        else{
+            return a-2;
+        }
     }
 }
 
 
 int main()
 {
-    arrangeCoins(17);
+    arrangeCoins(1);
 }
