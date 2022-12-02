@@ -19,34 +19,24 @@ uniform_int_distribution<int> dis(-1,1);
 
 #define step 5
 
-int* fill(int *); // xuti nabijis simulacia
-void big_fill(int *);
+void filler(int *[][step]); // xuti nabijis simulacia
 
-// nonono
-// 2d realurad 1d aris poineterbistvis
-// prosta indeqsacia gaagrdzele stepis shemdeg
-// ......................................
+// *(*(arr+i)+j)=int
 
 int main()
 {
-
-    int array[step], big_boy[][step];
-    fill(array);
+    int *array[10*step][step];
+    filler(array);
+    cout<<array[0][1];
 }
 
-int* fill(int *arr)
+void filler(int *arr[][step])
 {
-    cout<<"xuti nabiji -> ";
-    for(int a=0;a<step;++a)
+    for(size_t n = 0; n < sizeof(arr)/sizeof(int) ; ++n)
     {
-        *arr=dis(gen);
-        cout<<*arr++<<" ";
+        for(size_t m=0; m< step; ++m)
+        {
+            *(*(arr+n)+m)=(int*)dis(gen);
+        }
     }
-    cout<<endl;
-    return (int*)arr;
-}
-
-void big_fill(int *arr[step])
-{
-
 }
