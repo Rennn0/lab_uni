@@ -22,7 +22,10 @@ uniform_int_distribution<int> dis(-1,1);
 int* fill(int *); // xuti nabijis simulacia
 void big_fill(int *);
 
-
+// nonono
+// 2d realurad 1d aris poineterbistvis
+// prosta indeqsacia gaagrdzele stepis shemdeg
+// ......................................
 
 int main()
 {
@@ -45,5 +48,5 @@ int* fill(int *arr)
 
 void big_fill(int *arr[step])
 {
-    
+
 }
