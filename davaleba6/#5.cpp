@@ -9,21 +9,40 @@
 using namespace std;
 
 void perfect(int &);
+bool check(size_t);
 
 int main()
 {
-    int wish=7; // ramdeni srulyofili vipovot
+    int wish=5; // ramdeni srulyofili vipovot, mets verc poulobs :|||||
     perfect(wish);
 }
 
 void perfect(int &n)
 {
-    // formula  2^p * (2^(p+1) -1 ) == perfect
-    // 
-    for(int a=1, c=1; n>0;++a, --n, c+=2 )
+    // formula  2^(p-1) * (2^p -1 ) == perfect
+    // p_primary number , 2^p-1_ mersene prime
+    // formula araa sakmarisi, shemowmebac unda
+    size_t perf;
+    for(int a=2;n>0;a++)
     {
-        
-        
+        perf=pow(2,a-1)*(pow(2,a)-1);
+        if(check(perf))
+        {
+            cout<<fixed<<perf<<"\tp="<<a<<endl;
+            --n;
+        }
+            
     }
-    
+        
+}
+
+bool check(size_t m)
+{
+    size_t jami=0;
+    for(size_t i=1;i<=m/2;++i)
+    {
+        if(m%i==0)
+            jami+=i;
+    }
+    return jami==m;
 }
