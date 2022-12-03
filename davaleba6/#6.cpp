@@ -20,20 +20,26 @@ uniform_int_distribution<int> dis(-1,1);
 #define step 5
 
 void filler(int [][step]); // xuti nabijis simulacia
-//pozicia -1
-void pos__1();
-//pozicia 0
-void pos_0();
-//pozicia 1
-void pos_1();
+void positions(int [][step], int*,int*,int*);//poziciebi -1 0 1
 
-// logika pointerebit wvdomistvis
-// *(*(arr+i)+j)=int
+// logika pointerebit masivis wevrebze wvdomistvis
+// *(*(arr+i)+j) = ragac
 
 int main()
 {
+    // mcdelobebis raodenoba hardcoded aris, vfiqrob 
+    // optimizacia usargeblo iqneboda, amito darches ase...
+
     int array[10*step][step]; //array yvela nabijis shesanaxad
+    
+    int minus_one=0, zero=0, one=0,  // bolo koordinatebis mnishvnelobebs sheinaxaven 
+        sul=10*step;  // 50 mcdeloba sul
     filler(array);
+    positions(array, &minus_one, &zero, &one);
+
+    cout<<"Albatoba -1 = "<<1.*minus_one/sul<<endl;
+    cout<<"Albatoba  0 = "<<1.*zero/sul<<endl;
+    cout<<"Albatoba  1 = "<<1.*one/sul<<endl;
 
 }
 
@@ -47,4 +53,20 @@ void filler(int arr[][step]) // sheavsebs arrays random nabijebit
         }
     }
     cout<<endl;
+}
+
+void positions(int arr[][step], int* neg,int* nul,int* pos)
+{
+    //titoeuli striqonis bolo wevrs shevamowmeb 
+    //da shesabamis cvladebis mnishvnelobebs gavzrdi
+
+    for(size_t t=0; t<50;++t)
+    {
+        if(*(*(arr+t)+step-1)==-1)
+            ++*neg;
+        else if(*(*(arr+t)+step-1)==0)
+            ++*nul;
+        else    
+            ++*pos;
+    }
 }
