@@ -20,7 +20,7 @@ uniform_int_distribution<int> dis(-1,1);
 #define step 5
 
 void filler(int [][step]); // xuti nabijis simulacia
-void positions(int [][step], int*,int*,int*);//poziciebi -1 0 1
+void positions(const int [][step], int*,int*,int*);//poziciebi -1 0 1
 
 // logika pointerebit masivis wevrebze wvdomistvis
 // *(*(arr+i)+j) = ragac
@@ -55,7 +55,7 @@ void filler(int arr[][step]) // sheavsebs arrays random nabijebit
     cout<<endl;
 }
 
-void positions(int arr[][step], int* neg,int* nul,int* pos)
+void positions(const int arr[][step], int* neg,int* nul,int* pos)
 {
     //titoeuli striqonis bolo wevrs shevamowmeb 
     //da shesabamis cvladebis mnishvnelobebs gavzrdi
