@@ -19,24 +19,32 @@ uniform_int_distribution<int> dis(-1,1);
 
 #define step 5
 
-void filler(int *[][step]); // xuti nabijis simulacia
+void filler(int [][step]); // xuti nabijis simulacia
+//pozicia -1
+void pos__1();
+//pozicia 0
+void pos_0();
+//pozicia 1
+void pos_1();
 
+// logika pointerebit wvdomistvis
 // *(*(arr+i)+j)=int
 
 int main()
 {
-    int *array[10*step][step];
+    int array[10*step][step]; //array yvela nabijis shesanaxad
     filler(array);
-    cout<<array[0][1];
+
 }
 
-void filler(int *arr[][step])
+void filler(int arr[][step]) // sheavsebs arrays random nabijebit
 {
-    for(size_t n = 0; n < sizeof(arr)/sizeof(int) ; ++n)
+    for(size_t n = 0; n < 10*step ; ++n)
     {
         for(size_t m=0; m< step; ++m)
         {
-            *(*(arr+n)+m)=(int*)dis(gen);
+            *(*(arr+n)+m)=dis(gen);
         }
     }
+    cout<<endl;
 }
