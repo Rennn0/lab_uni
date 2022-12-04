@@ -20,19 +20,19 @@
 using namespace std;
 
 #define total   20
-#define row     4
-#define column  4
+#define row     4 // anu 4 dge
+#define column  5 // 5 monacemi tito dgistvis
 
 random_device rnd;
 default_random_engine gen(rnd());
-uniform_real_distribution<double> dis(-0.5,0.5);
+uniform_real_distribution<double> dis(-.5,.5);
 /*
     monacemis struqtura aseti iqneba
     
     yoveli wina dgis fasi iqneba momdevno dgis saangarishi X mnishvneloba
     mesame wevrad random mnishvneloba sheinaxeba
     [
-        [ [x(r), y0 ,r , ry] [x=y0, y1 , r, ry] [x=y1, y2 , r, ry ] [x=y2, y3 ,r, ry] ]
+        [ [x(r), y0 ,r , ry ,cvlileba %] [x=y0, y1 , r, ry,...] [x=y1, y2 , r, ry.. ] [x=y2, y3 ,r, ry] ]
         
         [ [] [] [] [] ]
         
@@ -40,15 +40,17 @@ uniform_real_distribution<double> dis(-0.5,0.5);
         .....
     ]
 
-    grafiki y=1.05x+0.25
-    random diapazoni [-0.5,0.5]
+    grafiki y=1.55x+0.1
+    random diapazoni [-1.5,1.5]
 */
 typedef double dimensions[row][column];
 
 void filler(dimensions *); // pointeri heapis pointerze, sawyisi X mnishvnelobebistvis
 void dependence(dimensions *); // y mnishnvelobebistvis
 void print(const dimensions *); // yvelafers gamoitans ekranze
-double calc(const double); 
+double calc(const double); // grafikit mnishvnelobis gamotvla 
+void prob(int * ,const dimensions *); // xelshemwyobi xdomilobebistvis
+
 
 int main()
 {
@@ -56,20 +58,31 @@ int main()
         sul 20 dakvirveba
         titoeulshi 4 dgis monacemebi
         tito dges x y  random mnishvnelobeba da
-        random mnishvnelobis mixedvit y
+        random mnishvnelobis mixedvit y, + cvlileba procentuli
     */
+    
     dimensions *ptr=new dimensions[total];
     filler(ptr);
     dependence(ptr);
-    print(ptr);
-        
+    print(ptr); // Diff. datvlilia imave dgis y(fx) da y(act) shoris
+    
+    // cxrilis ageba morcha
+    // albatobis datvlistvis yovel bolo wevs shevadareb 0.5s
+    // calke func iqneba amistvis
+    
+    int *pcount=new int; // default 0
+    
+    prob(pcount,ptr);  
+
+    cout<<"Probability _ "<<(double)*pcount/total<<'%'<<endl;
+
 }
 
 void filler(dimensions *p) // yoveli arrays pirveli X wevri xdeba rand
 {
     for(size_t t=0; t<total; t++)
         {
-            *(*(*(p+t)))=rand()%3-1; // sawyisi mnishvneloba [-1,1] shauledidan
+            *(*(*(p+t)))=rand()%3; // sawyisi mnishvneloba [1,4] shauledidan
             *(*(*(p+t))+1)=calc(*(*(*(p+t)))); // pirveli dgis aqciis fasi
         }
 }   
@@ -77,34 +90,65 @@ void filler(dimensions *p) // yoveli arrays pirveli X wevri xdeba rand
 void dependence(dimensions *p)
 {
     for(size_t t=0; t<total; t++)
-        for(size_t r=1; r<row; r++) // pirveli dgis 
+    {
+        for(size_t r=1; r<row; r++) // x - y  monacemebis asheneba
             {
-                *(*(*(p+t)+r))=*(*(*(p+t)+r-1)+1);
-                *(*(*(p+t)+r)+1)=calc(*(*(*(p+t)+r))); 
-                *(*(*(p+t)+r)+2)=dis(gen);
+                *(*(*(p+t)+r))=*(*(*(p+t)+r-1)+1); // wina dgis x_ebze wvdoma
+                *(*(*(p+t)+r)+1)=calc(*(*(*(p+t)+r)));  // y gamotvla
             }
-
+        for(size_t r=0; r<row; r++) // calke loop random da y(random)_ebistvis
+            {
+                *(*(*(p+t)+r)+2)=dis(gen);
+                *(*(*(p+t)+r)+3)=*(*(*(p+t)+r)+1)+*(*(*(p+t)+r)+2);
+                double difference=(*(*(*(p+t)+r)+3)-*(*(*(p+t)+r)+1)) / *(*(*(p+t)+r)+1);
+                *(*(*(p+t)+r)+4)=difference;
+            }
+    }
 }
 
-//  y=1.05x+0.25
+//  y=1.01x+0.01
 double calc(const double x)
 {
-    return 1.05 * x + 0.25;
+    return 1.01* x + 0.01;
 }
 
 void print(const dimensions *p)
 {
     for(size_t t=0; t<total; t++)
     {
-        cout<<"\nDay "<<t+1<<"\nX\t\tY(f(x))\t\tRandom\t\tY(Random)";
+        cout<<"\nDay::"<<t+1<<"\nX\t\tY(f(x))\t\tRandom\t\tY(Actual)\tDiff. %";
         for(size_t r=0; r<row; r++)
         {
         cout<<endl;
             for(size_t c=0; c<column; c++)
             {
-                cout<<fixed<<setprecision(4)<<*(*(*(p+t)+r)+c)<<"\t\t";
+                if(c==4)
+                {
+                *(*(*(p+t)+r)+3)>*(*(*(p+t)+r)+1)?
+                cout<<fixed<<setprecision(2)<<*(*(*(p+t)+r)+c)<<" ↑":
+                cout<<fixed<<setprecision(2)<<*(*(*(p+t)+r)+c)<<" ↓";
+                }
+                else
+                cout<<fixed<<setprecision(4)<<*(*(*(p+t)+r)+c)<<"\t\t"; 
             }
         }
         cout<<endl;
     }
+}
+
+    /*50% klebis shemtxveva nakklebad realuria
+    amito matebis variantsac chavtvli*/ 
+void prob(int *p, const dimensions *parr) 
+{
+    double z;
+    for(size_t t=0;t<total;++t)
+    {
+        z=(*(*(*(parr+t)+3)+3)-*(*(*(parr+t))+1)) / *(*(*(parr+t))+1);
+        if(abs(z)>=0.5)
+        {
+            ++*p;
+            cout<<"Day :: "<<t+1<<endl;
+        }
+    }
+    cout<<"Total _ "<<*p<<endl;
 }
