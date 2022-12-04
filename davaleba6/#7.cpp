@@ -40,7 +40,7 @@ uniform_real_distribution<double> dis(-.5,.5);
         .....
     ]
 
-    grafiki y=1.55x+0.1
+    grafiki y=1.01x+0.01
     random diapazoni [-1.5,1.5]
 */
 typedef double dimensions[row][column];
@@ -74,8 +74,8 @@ int main()
     
     prob(pcount,ptr);  
 
-    cout<<"Probability _ "<<(double)*pcount/total<<'%'<<endl;
-
+    delete ptr, pcount;
+    return 0;
 }
 
 void filler(dimensions *p) // yoveli arrays pirveli X wevri xdeba rand
@@ -151,4 +151,6 @@ void prob(int *p, const dimensions *parr)
         }
     }
     cout<<"Total _ "<<*p<<endl;
+    
+    cout<<"Probability _ "<<(double)*p/total<<'%'<<endl;
 }
