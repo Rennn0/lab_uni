@@ -1,25 +1,48 @@
 #include "bsm.h"
 
+
 // gadavtvirtav cin cout operaciesbs klasis input outputistvis 
 istream& operator >> (istream& is,Bsm& obj)
 {
     
     string h(30,'-');
     double s,k,r,t;
-    cout<<"mogesalmebit Black-Scholes modelis simulatorshi \n"
+    cout<<"\nmogesalmebit Black-Scholes modelis simulatorshi \n"
         <<h<<"\nshemoitanet monacemebi gamotvlebistvis"<<endl;
     
-    cout<<"Current stock_"; is>>s; 
-    while(s<=0){cout<<"shemoitane validuri mnishvneloba_"; is>>s;}
+    cout<<"Current stock_"; 
+    // shezgudva daedeba yvelanair inputs garda double_sa
+    // 2saati am metodis dzebnas movundi -_____-
+    while(!(is>>s) || s<0) 
+    {
+        is.clear(); // buffers gaasuftavebs
+        is.ignore(numeric_limits<streamsize>::max(), '\n'); // gaabatilebs mtlian inputs sanam axali xazi ar shexvdeba
+        cout<<"shemoitane validuri mnishvneloba_"; // shecdomis dzaxili, mere tavidan daawerinebs
+    }
 
-    cout<<"Strike price_"; is>>k; 
-    while(k<=0){cout<<"shemoitane validuri mnishvneloba_"; is>>k;}
+    cout<<"Strike price_"; 
+    while(!(is>>k) || k<0) 
+    {
+        is.clear(); 
+        is.ignore(numeric_limits<streamsize>::max(), '\n'); 
+        cout<<"shemoitane validuri mnishvneloba_"; 
+    }
 
-    cout<<"Risk free interest rate_"; is>>r; 
-    while(r<0 || r>100){cout<<"shemoitane validuri mnishvneloba_"; is>>r;}
+    cout<<"Risk free interest rate_"; 
+    while(!(is>>r) || r<0 || r>100) 
+    {
+        is.clear(); 
+        is.ignore(numeric_limits<streamsize>::max(), '\n'); 
+        cout<<"shemoitane validuri mnishvneloba_"; 
+    }
 
-    cout<<"Time to maturity_"; is>>t; 
-    while(t<=0){cout<<"shemoitane validuri mnishvneloba_"; is>>t;}
+    cout<<"Time to maturity_"; 
+    while(!(is>>t) || t<0) 
+    {
+        is.clear(); 
+        is.ignore(numeric_limits<streamsize>::max(), '\n'); 
+        cout<<"shemoitane validuri mnishvneloba_"; 
+    }
 
     obj.S=s; obj.K=k; obj.R=r; obj.T=t;
     // shemedzlo obj=Bsm(s,k,r,t) gameketebina da friend wvdoma ar damchirdeboda
