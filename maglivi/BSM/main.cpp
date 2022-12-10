@@ -3,10 +3,10 @@
 
 int main()
 {
-    Bsm obj,obj2(2,3,4,5), obj3;
+    Bsm obj,obj2(2,3,4,5,3), obj3;
     cin>>obj;
     cout<<obj;
-    cout<<obj2;
+    obj2.print();
     cout<<obj3;
     
 }

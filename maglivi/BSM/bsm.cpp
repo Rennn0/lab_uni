@@ -1,12 +1,9 @@
 #include "bsm.h"
-
-
 // gadavtvirtav cin cout operaciesbs klasis input outputistvis 
 istream& operator >> (istream& is,Bsm& obj)
 {
-    
     string h(30,'-');
-    double s,k,r,t;
+    double s,k,r,t,u;
     cout<<"\nmogesalmebit Black-Scholes modelis simulatorshi \n"
         <<h<<"\nshemoitanet monacemebi gamotvlebistvis"<<endl;
     
@@ -44,8 +41,16 @@ istream& operator >> (istream& is,Bsm& obj)
         cout<<"shemoitane validuri mnishvneloba_"; 
     }
 
-    obj.S=s; obj.K=k; obj.R=r; obj.T=t;
-    // shemedzlo obj=Bsm(s,k,r,t) gameketebina da friend wvdoma ar damchirdeboda
+    cout<<"Volatility_"; 
+    while(!(is>>u) || t<0) 
+    {
+        is.clear(); 
+        is.ignore(numeric_limits<streamsize>::max(), '\n'); 
+        cout<<"shemoitane validuri mnishvneloba_"; 
+    }
+
+    obj.S=s; obj.K=k; obj.R=r; obj.T=t, obj.U=u;
+    // shemedzlo obj=Bsm(s,k,r,t,u) gameketebina da friend wvdoma ar damchirdeboda
     // magram operacia axali obieqtis sheqmnad chaitvleboda da globalur ID awevda
     // gadatvirtva razec gamovidzaxe im obieqtis IDc sheicvleboda
     return is;
@@ -56,10 +61,20 @@ ostream& operator << (ostream& os, const Bsm& obj)
     string h(30,'*');
     
     os<<h<<"\naqcia id:"<<obj.ID<<"\nmonacemebi:"
-        "\nCurrent stock_"<<fixed<<obj.S
-        <<"\nStrike price_"<<fixed<<obj.K
-        <<"\nRisk free interest rate_"<<fixed<<obj.R
-        <<"\nTime to maturity_"<<fixed<<obj.T<<endl;
-        
+        "\nCurrent stock_"<<fixed<<setprecision(2)<<obj.S
+        <<"\nStrike price_"<<fixed<<setprecision(2)<<obj.K
+        <<"\nRisk free interest rate_"<<fixed<<setprecision(4)<<obj.R
+        <<"\nTime to maturity(y)_"<<fixed<<setprecision(2)<<obj.T<<endl;
+        cout<<"Volatility_"<<fixed<<setprecision(4)<<obj.U<<endl;
         return os;
+}
+
+bool operator < (const Bsm& obj1,const Bsm& obj2)
+{
+    return obj1.result < obj2.result;
+}
+
+bool operator > (const Bsm& obj1,const Bsm& obj2)
+{
+    return obj1.result > obj2.result;
 }
