@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <limits>
 #include <algorithm>
 #include <vector>
 #include <ctime>
@@ -44,9 +45,11 @@ class Bsm
         Bsm(){ID=ID_count++; S=0,K=0,R=0,T=0;}
         Bsm(double s,double k, double r, double t)
         {ID=ID_count++; S=s,K=k,R=r,T=t;}
+        
         // wvdoma rom qonoda private wevrebze friend gavxade
         friend ostream& operator << (ostream& os, const Bsm& obj); 
         friend istream& operator >> (istream& is,Bsm& obj);
         //shedarebis operatorsac gadavtvirav ori obieqtistvis
+
 
 };
