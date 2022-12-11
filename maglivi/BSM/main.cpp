@@ -1,12 +1,9 @@
 #include "bsm.cpp"
-
-
+#include "calc.cpp"
 int main()
 {
-    Bsm obj,obj2(2,3,4,5,3), obj3;
+    Bsm obj2(110,220,5,10,2), obj;
+
     cin>>obj;
     cout<<obj;
-    obj2.print();
-    cout<<obj3;
-    
 }

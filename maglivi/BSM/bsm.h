@@ -27,9 +27,6 @@ t_time to maturity
 N_standard distribution
 u_volatility
 
-ert klasshi gadavtvirtav yvela operators da gamotvelbis metodebsac gavaketeb
-bolos shevxedav tu gamova calcake klasebsshi gavaketeb gamotvlebs da friendebad gamovacxadeb
-
 */
 
 class Bsm
@@ -38,9 +35,9 @@ class Bsm
         double S,K,R,T,U, result;
         int ID;
     public:
-        Bsm(){ID=ID_count++; S=rand()%10001,K=rand()%10001,R=rand()%101,T=rand()%101,U=rand()%101;}
+        Bsm(){ID=ID_count++; S=rand()%10001,K=rand()%10001,R=rand()%101,T=rand()%101,U=rand()%101, call_opt_price();}
         Bsm(double s,double k, double r, double t,double u)
-        {ID=ID_count++; S=s,K=k,R=r,T=t, U=u;}
+        {ID=ID_count++; S=s,K=k,R=r,T=t, U=u, call_opt_price();}
         
         // wvdoma rom qonoda private wevrebze friend gavxade
         friend ostream& operator << (ostream& os, const Bsm& obj); 
@@ -52,11 +49,7 @@ class Bsm
         void print()const;
         
         // math go brrrr
-        double d1()const;
-        double d2()const;
-        double std_dis()const;
-        double call_opt_price()const;
-
+        double call_opt_price();
 };
 
 inline void Bsm::print()const
@@ -71,3 +64,4 @@ inline void Bsm::print()const
         cout<<"Volatility_"<<fixed<<setprecision(4)<<this->U<<endl;
         cout<<"Call option price_"<<fixed<<setprecision(3)<<this->result<<endl;
     }
+

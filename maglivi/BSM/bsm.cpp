@@ -1,4 +1,5 @@
 #include "bsm.h"
+
 // gadavtvirtav cin cout operaciesbs klasis input outputistvis 
 istream& operator >> (istream& is,Bsm& obj)
 {
@@ -33,7 +34,7 @@ istream& operator >> (istream& is,Bsm& obj)
         cout<<"shemoitane validuri mnishvneloba_"; 
     }
 
-    cout<<"Time to maturity_"; 
+    cout<<"Time to maturity(y)_"; 
     while(!(is>>t) || t<0) 
     {
         is.clear(); 
@@ -49,7 +50,7 @@ istream& operator >> (istream& is,Bsm& obj)
         cout<<"shemoitane validuri mnishvneloba_"; 
     }
 
-    obj.S=s; obj.K=k; obj.R=r; obj.T=t, obj.U=u;
+    obj.S=s; obj.K=k; obj.R=r; obj.T=t, obj.U=u; obj.call_opt_price();
     // shemedzlo obj=Bsm(s,k,r,t,u) gameketebina da friend wvdoma ar damchirdeboda
     // magram operacia axali obieqtis sheqmnad chaitvleboda da globalur ID awevda
     // gadatvirtva razec gamovidzaxe im obieqtis IDc sheicvleboda
@@ -66,6 +67,7 @@ ostream& operator << (ostream& os, const Bsm& obj)
         <<"\nRisk free interest rate_"<<fixed<<setprecision(4)<<obj.R
         <<"\nTime to maturity(y)_"<<fixed<<setprecision(2)<<obj.T<<endl;
         cout<<"Volatility_"<<fixed<<setprecision(4)<<obj.U<<endl;
+        cout<<"Call option price_"<<fixed<<setprecision(3)<<obj.result<<endl;
         return os;
 }
 
@@ -78,3 +80,4 @@ bool operator > (const Bsm& obj1,const Bsm& obj2)
 {
     return obj1.result > obj2.result;
 }
+
