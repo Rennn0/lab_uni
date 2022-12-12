@@ -1,9 +1,15 @@
 #include "bsm.cpp"
 #include "calc.cpp"
+
+void greet();
+
 int main()
 {
-    Bsm obj2(110,220,5,10,2), obj;
+    greet();
+}
 
-    cin>>obj;
-    cout<<obj;
+void greet()
+{
+    string left(51,'#'),h(20,'-');
+    cout<<left<<endl<<h<<"->Welcome<-"<<h<<endl<<left<<endl;
 }

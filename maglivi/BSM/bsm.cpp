@@ -61,7 +61,7 @@ ostream& operator << (ostream& os, const Bsm& obj)
 {
     string h(30,'*');
     
-    os<<h<<"\naqcia id:"<<obj.ID<<"\nmonacemebi:"
+    os<<h<<"\nObject ID_"<<obj.ID<<"\nmonacemebi:"
         "\nCurrent stock_"<<fixed<<setprecision(2)<<obj.S
         <<"\nStrike price_"<<fixed<<setprecision(2)<<obj.K
         <<"\nRisk free interest rate_"<<fixed<<setprecision(4)<<obj.R

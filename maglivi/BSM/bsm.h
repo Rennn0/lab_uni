@@ -26,7 +26,6 @@ r_risk free interest rate
 t_time to maturity
 N_standard distribution
 u_volatility
-
 */
 
 class Bsm
