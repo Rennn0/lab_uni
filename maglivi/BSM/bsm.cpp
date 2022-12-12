@@ -5,7 +5,7 @@ istream& operator >> (istream& is,Bsm& obj)
 {
     string h(30,'-');
     double s,k,r,t,u;
-    cout<<"\nmogesalmebit Black-Scholes modelis simulatorshi \n"
+    cout<<"\nBlack-Scholes Model simulator \n"
         <<h<<"\nshemoitanet monacemebi gamotvlebistvis"<<endl;
     
     cout<<"Current stock_"; 
