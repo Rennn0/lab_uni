@@ -1,1 +1,0 @@
-// bsm klasebis klasi
